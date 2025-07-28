@@ -1,0 +1,55 @@
+<!DOCTYPE HTML>
+<html lang='fr' data-theme="dark">
+    <head>
+        <meta charset='utf-8'>
+        <title>Password Manager.</title>
+        <link href="https://cdn.jsdelivr.net/npm/daisyui@5" rel="stylesheet" type="text/css" />
+        <script src="https://cdn.jsdelivr.net/npm/@tailwindcss/browser@4"></script>
+        <link href="https://cdn.jsdelivr.net/npm/daisyui@5/themes.css" rel="stylesheet" type="text/css" />
+        <!-- Development version -->
+        <script src="https://unpkg.com/lucide@latest/dist/umd/lucide.js"></script>
+
+        <!-- Production version -->
+        <script src="https://unpkg.com/lucide@latest"></script>
+    </head>
+    <body>
+        <div class="flex justify-center items-center h-screen ">
+            <div class="flex flex-col w-2xl bg-base-200 rounded-xl p-6">
+                <div class="w-full h-fit">
+                    {% block content %}
+                    {% endblock %}
+                </div>
+            </div>
+        </div>
+        <script>
+            function generatePassword(){
+                let chars="";
+                for (let i=32;i<127;i++){
+                    chars+=String.fromCharCode(i);
+                }
+                
+                let randomChar="";
+                for (let i=1;i<=10;i++){
+                    randomChar += chars[Math.floor(Math.random()*chars.length)];
+                }
+                password = document.querySelector(".password")
+                password.value=randomChar;
+            }
+            function copyPassword(div) {
+                // On cherche l’input DANS la div cliquée
+                const input = div.querySelector(" div .hidden");
+                
+                if (input) {
+                    const texte = input.value;
+                    navigator.clipboard.writeText(texte).then(() => {
+                        alert("✅ Password copié.");
+                    }).catch(err => {
+                        console.error("Erreur de copie :", err);
+                    });
+                }
+            }
+              
+            lucide.createIcons();
+        </script>
+    </body>
+</html>

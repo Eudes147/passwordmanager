@@ -1,0 +1,14 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<form action="{% url 'deletePassword' id=passwordManager.id %}" method="POST">
+    {% csrf_token %}
+    <div class="text-center w-full">
+    <span class="">Êtes vous sûr de vouloir supprimer le mot de passe de <strong>{{passwordManager.name}}</strong>.</span>
+    <div class="w-full flex space-x-5 justify-center items-center my-5">
+        <a href="{% url 'dashboard' %}" class="btn btn-soft btn-info">Annuler</a>
+        <button type="submit" class="btn btn-info">Supprimer</button>
+    </div>
+</div>
+</form>
+{% endblock %}

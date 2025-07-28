@@ -1,0 +1,28 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<div class="w-full bg-base-200 mb-10">
+    <a href="{% url 'addPassword' %}" class="btn btn-soft btn-warning w-full focus:outline-none">Add Password</a>
+</div>
+<div class="w-full">
+    {% for password in passwords %}
+    <div class="flex justify-between  items-center my-5 bg-base-100 p-4 hover:cursor-pointer" onclick="copyPassword(this)">
+        <div class="flex flex-col justify-center items-start">
+            <p class="text-bold">{{password.name}}</p>
+            <div class="badge badge-soft badge-warning rounded-xs">{{password.url}}</div>
+            <p>**********</p>
+            <input type="hidden" class="hidden" value="{{password.password}}">
+        </div>
+        <div class="flex gap-4 justify-center items-center">
+            <a href="{% url 'editPassword' id=password.id %}" onclick="event.stopPropagation()" class="btn btn-soft btn-info">Edit</a>
+            <a href="{% url 'deletePassword' id=password.id %}" onclick="event.stopPropagation()" class="btn btn-error" >Delete</a>
+        </div>
+    </div>
+    {% empty %}
+    <div class="flex flex-col justify-center items-center text-center">
+        <i data-lucide="key-round" class="icon-large" style="width: 48px; height: 48px; margin-bottom: 5px;"></i>
+        <p class="text-sm">No password saved.</p>
+    </div>
+    {% endfor %}
+</div>
+{% endblock %}
